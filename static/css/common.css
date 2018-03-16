@@ -1,0 +1,12 @@
+.limit_length {
+    width: 100%; 
+    word-wrap: break-word;
+}
+
+.limit_length_title{
+    width: 100%;
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}

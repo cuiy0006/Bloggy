@@ -1,0 +1,93 @@
+{% extends "full-width-base.html" %}
+{% load blog_tags %}
+{% block mainframe %}
+    <main class="col-md-8">
+        {% block main %}
+        {% endblock main %}
+    </main>
+{% endblock mainframe %}
+{% block aside %}
+    <aside class="col-md-4">
+        {% block toc %}
+        {% endblock toc %}
+        <div class="widget widget-recent-posts">
+            <h3 class="widget-title">Recent Articles</h3>
+            {% get_recent_posts as recent_post_list %}
+            <ul>
+                {% for post in recent_post_list %}
+                <li class="limit_length_title">
+                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                </li>
+                {% empty %}
+                No Article
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="widget widget-archives">
+            <h3 class="widget-title">Archive</h3>
+            {% archives as date_list %}
+            <ul>
+                {% for date in date_list %}
+                <li>
+                    <a href="{% url 'blog:archive' date.year date.month %}">{{ date }}</a>
+                </li>
+                {% empty %}
+                No Archive
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="widget widget-category">
+            <h3 class="widget-title">Category</h3>
+            {% get_categories as category_list %}
+            <ul>
+                {% for category in category_list %}
+                <li>
+                    <a href="{% url 'blog:category' category.pk %}">{{ category.name }} <span class="post-count">(13)</span></a>
+                </li>
+                {% empty %}
+                No Category
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="widget widget-tag-cloud">
+            <h3 class="widget-title">Tag</h3>
+            <ul>
+                <li>
+                    <a href="#">Django</a>
+                </li>
+                <li>
+                    <a href="#">Python</a>
+                </li>
+                <li>
+                    <a href="#">Java</a>
+                </li>
+                <li>
+                    <a href="#">笔记</a>
+                </li>
+                <li>
+                    <a href="#">文档</a>
+                </li>
+                <li>
+                    <a href="#">AngularJS</a>
+                </li>
+                <li>
+                    <a href="#">CSS</a>
+                </li>
+                <li>
+                    <a href="#">JavaScript</a>
+                </li>
+                <li>
+                    <a href="#">Snippet</a>
+                </li>
+                <li>
+                    <a href="#">jQuery</a>
+                </li>
+            </ul>
+        </div>
+        <div class="rss">
+            <a href=""><span class="ion-social-rss-outline"></span> RSS </a>
+        </div>
+    </aside>
+{% endblock aside %}
