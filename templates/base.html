@@ -15,8 +15,8 @@
             {% get_recent_posts as recent_post_list %}
             <ul>
                 {% for post in recent_post_list %}
-                <li class="limit_length_title">
-                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                <li class="opacity_on_hover">
+                    <div class="limit_length_title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></div>
                 </li>
                 {% empty %}
                 No Article
@@ -28,8 +28,8 @@
             {% archives as date_list %}
             <ul>
                 {% for date in date_list %}
-                <li>
-                    <a href="{% url 'blog:archive' date.year date.month %}">{{ date }}</a>
+                <li class="opacity_on_hover">
+                    <a href="{% url 'blog:archive' date.year date.month %}">{{ date.year }} - {{date.month}}</a>
                 </li>
                 {% empty %}
                 No Archive
@@ -42,8 +42,9 @@
             {% get_categories as category_list %}
             <ul>
                 {% for category in category_list %}
-                <li>
-                    <a href="{% url 'blog:category' category.pk %}">{{ category.name }} <span class="post-count">(13)</span></a>
+                <li class="opacity_on_hover">
+                    <a href="{% url 'blog:category' category.pk %}">{{ category.name }} 
+                        <span class="post-count">({{ category.num_posts }})</span></a>
                 </li>
                 {% empty %}
                 No Category
@@ -53,41 +54,19 @@
 
         <div class="widget widget-tag-cloud">
             <h3 class="widget-title">Tag</h3>
+            {% get_tags as tag_list %}
             <ul>
-                <li>
-                    <a href="#">Django</a>
+                {% for tag in tag_list %}
+                <li class="opacity_on_hover">
+                    <a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}</a>
                 </li>
-                <li>
-                    <a href="#">Python</a>
-                </li>
-                <li>
-                    <a href="#">Java</a>
-                </li>
-                <li>
-                    <a href="#">笔记</a>
-                </li>
-                <li>
-                    <a href="#">文档</a>
-                </li>
-                <li>
-                    <a href="#">AngularJS</a>
-                </li>
-                <li>
-                    <a href="#">CSS</a>
-                </li>
-                <li>
-                    <a href="#">JavaScript</a>
-                </li>
-                <li>
-                    <a href="#">Snippet</a>
-                </li>
-                <li>
-                    <a href="#">jQuery</a>
-                </li>
+                {% empty %}
+                No Tag
+                {% endfor %}
             </ul>
         </div>
         <div class="rss">
-            <a href=""><span class="ion-social-rss-outline"></span> RSS </a>
+            <a href="{% url 'rss' %}" target="_blank"><span class="ion-social-rss-outline"></span> RSS </a>
         </div>
     </aside>
 {% endblock aside %}

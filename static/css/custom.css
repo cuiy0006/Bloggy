@@ -362,7 +362,7 @@ img {
 }
 
 .widget-recent-posts ul li::before {
-    content: '\f3d3';
+    content: '\f3f3';
     font-family: "Ionicons";
     position: absolute;
     left: -17px;
